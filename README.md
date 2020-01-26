@@ -23,5 +23,15 @@ I struggled with how "production-like" to make this controller. Ultimately, I se
 This action method is pretty simple: it looks up a charge in the DB and returns it if it's found or a 404 if it's not.
 
 ##### [POST api/charges](https://github.com/michaelnero/PaymentGateway/blob/7c13466e0d208ba7b9545245d081adb80d272d59/PaymentGateway/Controllers/ChargesController.cs#L51)
-I would make this method more resilient to failure in a more production-like scenario. The alternate flow would look like this:
+I would make this method more resilient to failure in a more production-like scenario. The alternate flow would look like the image below with events and commands passed through a resilient queue like Azure Service Bus.
 ![ChargeProcessManager flow](ChargeProcessManager.png)
+
+### PaymentGateway.Tests
+This project contains two types of tests
+ - **Unit tests** - examples can be found in `/UtilTests/CardNumberUtilTests`.
+ - **Integration tests** - examples can be found in
+   - `/ControllerTests/ChargesControllerTests.GetTests.cs`
+   - `/ControllerTests/ChargesControllerTests.PostTests.cs`
+
+### PaymentGatewayClient
+This project contains a simple API client that can be used to call the payment gateway. It is usable by `AddPaymentGatewayClient()` extension method.
