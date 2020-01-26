@@ -35,6 +35,11 @@ namespace PaymentGateway
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
+            // ** IMPORTANT **
+            // The registrations for both PaymentGatewayContext and an IAcquiringBank implementation are missing from
+            // this file. Those registrations are done in the test project right now since the only thing that exists
+            // are essentially mocks. If you'd like to run this project, add the appropriate registrations.
+
             services
                 .AddSingleton<IApiKeyStore>(new InMemoryApiKeyStore(new Dictionary<string, ApiKey>
                 {
