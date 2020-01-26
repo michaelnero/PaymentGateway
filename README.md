@@ -23,7 +23,10 @@ I struggled with how "production-like" to make this controller. Ultimately, I se
 This action method is pretty simple: it looks up a charge in the DB and returns it if it's found or a 404 if it's not.
 
 ##### [POST api/charges](https://github.com/michaelnero/PaymentGateway/blob/7c13466e0d208ba7b9545245d081adb80d272d59/PaymentGateway/Controllers/ChargesController.cs#L51)
-This method is overly simple, and it wouldn't stand up in a real production-like environment. I would make this method more resilient to failure in a more production-like scenario. The alternate flow would look like the image below with events and commands passed through a resilient queue like Azure Service Bus.
+This method is overly simple, and it wouldn't stand up in a real production-like environment. I would make this method more resilient to failure in a more production-like scenario by breaking apart the application so that the Charge record and acquiring bank flows can manage their workflows independently. I would also use resilient queues like Azure Service Bus so that this entire workflow can happen asynchronously and be recoverable. Additionally, I would use event sourcing so we could more easily troubleshoot problems later.
+
+The branch [feature/resilient](https://github.com/michaelnero/PaymentGateway/tree/feature/resilient) shows an example of what this approach would look like in practice. Note that this example is missing significant implementations, most notably some of the event sourcing stuff. Also be aware that this example is much more complex, but the flow can generally be illustrated in the image below.
+
 ![ChargeProcessManager flow](ChargeProcessManager.png)
 
 ### PaymentGateway.Tests
