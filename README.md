@@ -24,3 +24,4 @@ This action method is pretty simple: it looks up a charge in the DB and returns 
 
 ##### [POST api/charges](https://github.com/michaelnero/PaymentGateway/blob/7c13466e0d208ba7b9545245d081adb80d272d59/PaymentGateway/Controllers/ChargesController.cs#L51)
 I would make this method more resilient to failure in a more production-like scenario. The alternate flow would look like this:
+![ChargeProcessManager flow](ChargeProcessManager.png)
