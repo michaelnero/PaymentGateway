@@ -77,7 +77,7 @@ namespace PaymentGateway.Controllers
             {
                 // This handles the case where someone is double-posting a charge with the same IdempotentKey.
 
-                _logger.LogWarning("A charge with idempotency key {IdempotentKey} attempted to double point.", request.IdempotentKey);
+                _logger.LogWarning("A charge with idempotency key {IdempotentKey} attempted to double post.", request.IdempotentKey);
                 return Conflict();
             }
 
