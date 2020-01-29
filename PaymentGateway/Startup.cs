@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaymentGateway.Authentication;
+using PaymentGateway.Model;
+using PaymentGateway.Services;
 
 namespace PaymentGateway
 {
@@ -42,6 +45,13 @@ namespace PaymentGateway
                     ["MZanF@Mw731x*fKJ7fq%FU7GaiBME1b!4daF"] = new ApiKey(2, "checkout.com", true)
                 }))
                 .AddApiKey(_ => { });
+
+            services.AddSingleton<IAcquiringBank>(new MockAcquiringBank(true));
+
+            services.AddDbContext<PaymentGatewayContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("PaymentGateway"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
