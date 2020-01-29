@@ -1,6 +1,45 @@
 
+
 # Payment Gateway
 Thanks for taking the time to review my code submission! I've outline below what I've implemented and then some notes and specific improvements I'd like to see if this were a full payment gateway.
+
+## How to run the project
+
+### Verify the connection string
+The `PaymentGate/appsettings.Development.json` file uses localdb for convenience. You likely already have LocalDb installed, but if you don't, you can change the server here.
+
+### Run the database migrations.
+This can be achieved by opening the solution in Visual Studio and use the Package Manager Console to run the `Update-Database` command.
+
+Alternatively, I have included a dotnet-tools.json file for convenience so that you can install dotnet-ef. Open the solution directory in a command prompt and run the following commands:
+
+```
+dotnet tool restore
+dotnet ef database update --project PaymentGateway
+```
+
+If you run into issues on this step, try [Entity Framework Core tools reference - .NET CLI](https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet). If you're still stuck, please feel free to reach out to me.
+
+### Add your API key to your request's header
+
+The API will reject any calls that do not have an `X-Api-Key` header. You can find the API keys in the `Startup.cs` file.
+
+### Use valid inputs
+
+The POST endpoint performs validation on the payload. You can see the rules in `PaymentGateway\Contracts\CreateChargeRequest.cs`. Most of the rules are straightforward, except the credit card validation. A valid POST body (including a valid credit card number) is below for convenience.
+
+```
+{
+	"idempotent_key": "1234",
+	"amount": 4.00,
+	"currency": "USD",
+	"description": null,
+	"card_number": "1234567890123452",
+	"cvv": "1234",
+	"expiry_month": 1,
+	"expiry_year": 2020
+}
+```
 
 ## What I've implemented
 
