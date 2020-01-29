@@ -72,8 +72,8 @@ The branch [feature/resilient](https://github.com/michaelnero/PaymentGateway/tre
 This project contains two types of tests
  - **Unit tests** - examples can be found in `/UtilTests/CardNumberUtilTests`.
  - **Integration tests** - examples can be found in
-   - `/ControllerTests/ChargesControllerTests.GetTests.cs`
-   - `/ControllerTests/ChargesControllerTests.PostTests.cs`
+   - `/ControllerTests/ChargesControllerTests_GetTests.cs`
+   - `/ControllerTests/ChargesControllerTests_PostTests.cs`
 
 ### PaymentGatewayClient
 This project contains a simple API client that can be used to call the payment gateway. It is usable by `AddPaymentGatewayClient()` extension method.
