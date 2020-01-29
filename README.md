@@ -41,6 +41,10 @@ The POST endpoint performs validation on the payload. You can see the rules in `
 }
 ```
 
+### Don't re-use `idempotent_key` values
+
+The POST endpoint prevents double-posting of charges by using the `idempotent_key` field. Re-using a previous value will get you a `409 Conflict` from the service.
+
 ## What I've implemented
 
 ### PaymentGateway
